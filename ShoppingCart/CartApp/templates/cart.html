@@ -1,0 +1,55 @@
+<div class="alert alert-primary">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th colspan="4" class="text-center">Carrito</th>
+      </tr>
+      <tr>
+        <th scope="col">NOMBRE</th>
+        <th scope="col">PRECIO</th>
+        <th scope="col">CANTIDAD</th>
+        <th scope="col">TOTAL POR PRODUCTO</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if request.session.cart.items %} {% for key, value in request.session.cart.items %}
+      <tr>
+        <td>{{value.name}}</td>
+        <td class="text-center">{{value.price_unit}}</td>
+        <td>
+          <div class="d-flex justify-evenly align-items-center">
+            <div>{{value.amount}}</div>
+            <div>
+              <a href="{% url 'Add' value.product_id %}" class="badge btn btn-dark badge-dark">+</a>
+              <a href="{% url 'Subtract' value.product_id %}" class="badge btn btn-dark badge-dark"
+                >-</a
+              >
+            </div>
+          </div>
+        </td>
+        <td class="text-center">{{value.accumulated}}</td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="4">
+          <div class="alert alert-danger text-center">Sin productos</div>
+        </td>
+      </tr>
+      {% endif %}
+      <tr>
+        <th scope="row">Total:</th>
+        <td colspan="2"></td>
+        <td class="text-center">S/. {{total_cart}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+</div>
+<div class="row text-center">
+  <div class="col-6">
+    <a href="{% url 'Clean' %}" class="btn btn-danger">Limpiar</a>
+  </div>
+  <div class="col-6">
+    <a href="{% url 'Shop' %}" class="btn btn-sucess">Guardar</a>
+  </div>
+</div>

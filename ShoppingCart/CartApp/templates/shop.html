@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Tienda</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1 class="col-12 text-dark text-center p-4">Tienda</h1>
+      </div>
+      <div class="row">
+        <div class="col-7">
+          <p>Productos</p>
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                {% for product in products %}
+                <div class="col-6 pb-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{product.name}}</h5>
+                      <p class="card-text">{{product.category}}</p>
+                      <p class="card-text">{{product.price}}</p>
+                      <a href="{% url 'Add' product.id %}" class="card-link">Agregar al carrito</a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-5">{% include "cart.html" %}</div>
+      </div>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>
